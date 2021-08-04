@@ -1,0 +1,1 @@
+dwc_otg.lpm_enable=0 console=tty1 console=ttyAMA0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait wireless-power off fbcon=map:10 fbcon=font:ProFont6x11 logo.nologo rw init=/bin/bash -c "mount /boot -o rw,sync; mount -t proc proc /proc; mount -t sysfs sys /sys; source /boot/unattended"

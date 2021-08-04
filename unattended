@@ -1,0 +1,28 @@
+# 1. MAKING THE SYSTEM WORK. DO NOT REMOVE
+mount -t tmpfs tmp /run; 
+mkdir -p /run/systemd;
+mount /boot -o rw,sync; 
+
+sed -i 's|rw init\=.*||' /boot/cmdline.txt;
+
+# 2. THE USEFUL PART OF THE SCRIPT
+cp -rf /boot/payload/home/pi/. /home/pi/;
+cp -rf /boot/payload/usr/. /usr/;
+ln -sf\
+ /lib/systemd/system/one-time-script.service\
+ /etc/systemd/system/multi-user.target.wants/
+
+systemctl enable one-time-script 
+
+# 3. CLEANING UP 
+mount /boot -o remount,ro
+sync
+echo 1 > /proc/sys/kernel/sysrq
+
+# 5. REBOOTING
+umount /boot
+mount -o remount,ro /
+sync
+sleep 10;
+echo b > /proc/sysrq-trigger
+reboot -f

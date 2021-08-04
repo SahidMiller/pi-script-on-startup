@@ -1,0 +1,1 @@
+echo "Testing" >> /home/pi/Desktop/text.txt
